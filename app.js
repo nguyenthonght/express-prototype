@@ -9,11 +9,6 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var books = require('./routes/books');
 
-var controller = require('./routes/controller');
-
-// init
-controller.init();
-
 var app = express();
 
 // view engine setup

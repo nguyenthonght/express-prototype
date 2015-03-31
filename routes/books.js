@@ -1,16 +1,15 @@
 var express = require('express'),
 		router = express.Router(),
-		controller = require('./controller'),
+		Base = require('./controller'),
 		log = require('../utils/logs');
 
-/* GET books listing. */
-router.get('/', function(req, res, next) {
-	var dbBook = controller.db.dbBook.modelClass;
-	
-	// find all books
-	dbBook.find(function (err, books) {
-		res.send(books);
-	});
-});
+// create a Book router from the base
+var Book = new Base('dbBook', router);
 
+// adding basic route
+router = Book.getRouter();
+
+/**
+ * Expose
+ */
 module.exports = router;

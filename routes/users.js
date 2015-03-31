@@ -1,16 +1,20 @@
 var express = require('express'),
 		router = express.Router(),
-		controller = require('./controller'),
+		Base = require('./controller'),
 		log = require('../utils/logs');
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-	var dbUser = controller.db.dbUser.modelClass;
-	
-	// find all users
-	dbUser.find(function (err, users) {
-		res.send(users);
-	});
+// create a User router from the base
+var User = new Base('dbUser', router);
+
+// adding basic route
+router = User.getRouter();
+
+// try to override a method
+router.get('/override', function (req, res) {
+	res.send('override some method');
 });
 
+/**
+ * Expose
+ */
 module.exports = router;
