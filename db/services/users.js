@@ -3,7 +3,11 @@ var model = require('../schema/user'),
 
 // define services of user
 Services = {
-	modelClass: model
+	modelClass: model,
+
+	getAll: function (callback) {
+		this.modelClass.find(callback);
+	}
 };
 
 /**
