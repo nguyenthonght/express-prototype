@@ -10,9 +10,19 @@ var Base = oop.Base.extend({
 	},
 
 	get: function (opts, callback) {
-		var service = this.getService();
+		this.getService().getAll(callback);		
+	},
 
-		service.modelClass.find(callback);		
+	post: function (opts, callback) {
+		this.getService().create(opts.data, callback);
+	},
+
+	put: function (opts, callback) {
+		this.getService().update(opts.action, opts.data, callback);
+	},
+
+	delete: function (opts, callback) {
+		this.getService().remove(opts.action, callback);
 	},
 
 	getService: function () {
@@ -22,12 +32,9 @@ var Base = oop.Base.extend({
 	handle: function (opts, callback) {
 		var controller = this[opts.method];
 
-		console.log(this[opts.method], controller);
-
-		// return this.get(opts, callback);
-
 		if (controller)
-			return controller(opts, callback);
+			return this[opts.method](opts, callback);
+			// return controller(opts, callback);
 		else
 			return callback('wrong request');
 	}

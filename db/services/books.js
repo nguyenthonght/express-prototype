@@ -1,10 +1,10 @@
 var model = require('../schema/book'),
-		Services;
+		Base = require('../base-service');
 
 // define services of user
-Services = {
+var Services = Base.extend({
 	modelClass: model
-};
+});
 
 /**
  * Expose

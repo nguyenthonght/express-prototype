@@ -4,6 +4,8 @@
 var async = require('async'),
 		_ = require('underscore'),
 		Router = require('./router'),
+		Log = require('log'),
+		log = new Log('info'),
 		DatabaseManager = require('../db'),
 		mongoConnection = require('../utils/mongodb-connection'),
 		Server;
@@ -12,9 +14,9 @@ Server = function (opts) {
 	var self = this,
 			webapp = this.webapp = opts.app,
 			db = this.db = DatabaseManager,
-			router = this.router = new Router({db: db, apis: ['users']});
+			router = this.router = new Router({db: db, apis: ['users', 'books']});
 
-	var apiHandler = function(req, res, next) {
+	var apiHandler = function(req, res, next) {		
 		var requestParams = _.clone({
 					controller: req.params.controller,
 					action: req.params.action,
@@ -22,6 +24,8 @@ Server = function (opts) {
 					method: req.method.toLowerCase(),
 					data: req.body
 				});
+
+		log.info(requestParams);
 
 		requestParams = _.extend(requestParams, {
 			req: req,
@@ -40,6 +44,9 @@ Server = function (opts) {
 	};
 
 	webapp.all('/api/:controller', apiHandler);
+	webapp.all('/api/:controller/:action', apiHandler);
+
+	// init mongoose
 	mongoConnection.init();
 };
 

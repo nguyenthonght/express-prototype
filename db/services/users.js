@@ -1,14 +1,10 @@
 var model = require('../schema/user'),
-		Services;
+		Base = require('../base-service');
 
 // define services of user
-Services = {
-	modelClass: model,
-
-	getAll: function (callback) {
-		this.modelClass.find(callback);
-	}
-};
+var Services = Base.extend({
+	modelClass: model
+});
 
 /**
  * Expose
