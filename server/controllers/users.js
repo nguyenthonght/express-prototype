@@ -3,6 +3,15 @@ var _ = require('underscore'),
 
 var User = Base.extend({
 	dbServiceName: 'dbUser',
+
+	actions: {
+		'get-user-by-name': {
+			fn: 'getUserByName'
+		},
+		'get-by-id': {
+			fn: 'getById'
+		}
+	},
 	
 	/**
 	 * override
@@ -12,6 +21,14 @@ var User = Base.extend({
 			return callback(null, {override: true});
 		
 		return this.base(opts, callback);
+	},
+
+	getUserByName: function (opts, callback) {
+		callback(null, {testing: true});
+	},
+
+	getById: function (opts, callback) {
+
 	}
 });
 
