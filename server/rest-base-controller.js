@@ -9,6 +9,10 @@ var Base = oop.Base.extend({
 		this.db = opts.db;
 	},
 
+	actions: {
+
+	},
+
 	get: function (opts, callback) {
 		this.getService().getAll(callback);		
 	},
@@ -30,13 +34,18 @@ var Base = oop.Base.extend({
 	},
 
 	handle: function (opts, callback) {
-		var controller = this[opts.method];
+		var controller = this[opts.method],
+				action = opts.action;
 
-		if (controller)
-			return this[opts.method](opts, callback);
-			// return controller(opts, callback);
-		else
+		if (controller) {
+			if (action && this.actions[action] && this.actions[action].fn) {
+				this[this.actions[action].fn](opts, callback);
+			} else {
+				return this[opts.method](opts, callback);	
+			}			
+		} else {
 			return callback('wrong request');
+		}
 	}
 });
 
