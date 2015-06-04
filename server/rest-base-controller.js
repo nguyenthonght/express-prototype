@@ -17,6 +17,10 @@ var Base = oop.Base.extend({
 		this.getService().getAll(callback);		
 	},
 
+	getById: function (id, callback) {
+		this.getService().findById(id, callback);
+	},
+
 	post: function (opts, callback) {
 		this.getService().create(opts.data, callback);
 	},
