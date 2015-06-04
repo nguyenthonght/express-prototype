@@ -28,7 +28,9 @@ var User = Base.extend({
 	},
 
 	getById: function (opts, callback) {
+		var id = opts.id;
 
+		this.getService().findById(id, callback);
 	}
 });
 
