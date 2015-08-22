@@ -1,6 +1,6 @@
-var oop = require('node-g3').oop;
+var oop = require('basejs');
 
-var Base = oop.Base.extend({
+var Base = oop.extend({
 	modelClass: null,
 
 	constructor: function (opts) {

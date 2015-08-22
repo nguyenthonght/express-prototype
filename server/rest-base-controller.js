@@ -1,6 +1,6 @@
-var oop = require('node-g3').oop;
+var oop = require('basejs');
 
-var Base = oop.Base.extend({
+var Base = oop.extend({
 	dbServiceName: null,
 	dbControllerName: null,
 
@@ -14,7 +14,7 @@ var Base = oop.Base.extend({
 	},
 
 	get: function (opts, callback) {
-		this.getService().getAll(callback);		
+		this.getService().getAll(callback);
 	},
 
 	getById: function (id, callback) {
@@ -45,8 +45,8 @@ var Base = oop.Base.extend({
 			if (action && this.actions[action] && this.actions[action].fn) {
 				this[this.actions[action].fn](opts, callback);
 			} else {
-				return this[opts.method](opts, callback);	
-			}			
+				return this[opts.method](opts, callback);
+			}
 		} else {
 			return callback('wrong request');
 		}
